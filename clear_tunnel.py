@@ -4,16 +4,29 @@ import sys
 from pathlib import Path
 
 import yaml
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QMovie
 from PyQt5.QtWidgets import (
     QApplication,
     QComboBox,
     QLabel,
     QPushButton,
+    QStyledItemDelegate,
     QVBoxLayout,
     QWidget,
 )
 
+URL_PATTERN = r"https?://[a-zA-Z0-9.-]+(?:/[a-zA-Z0-9&%_./-]*)?(?:\?[a-zA-Z0-9&%=._/-]*)?"
 CONFIG_PATH = Path("config.yml")
+STYLE_PATH = Path("/app/styles/style.css")
+GIF_PATH = "/app/static/tunnel.gif"
+
+
+class CenteredItemDelegate(QStyledItemDelegate):
+    def paint(self, painter, option, index):
+        # Ensure the text is centered in the combo box items
+        option.displayAlignment = Qt.AlignCenter
+        super().paint(painter, option, index)
 
 
 class ClearTunnelApp(QWidget):
@@ -21,7 +34,11 @@ class ClearTunnelApp(QWidget):
         super().__init__()
 
         self.setWindowTitle("Clear Tunnel 🛡️")
-        self.setGeometry(100, 100, 400, 200)
+        self.resize(600, 400)
+        self.setMinimumSize(400, 300)
+
+        with STYLE_PATH.open("r", encoding="utf-8") as file:
+            self.setStyleSheet(file.read())
 
         # Layout setup
         layout = QVBoxLayout()
@@ -33,6 +50,14 @@ class ClearTunnelApp(QWidget):
         # ComboBox to select region
         self.region_combo = QComboBox()
         self.region_combo.addItems(self.config.get("regions", []))
+
+        # Set the custom delegate for centering the items
+        self.region_combo.setItemDelegate(CenteredItemDelegate(self.region_combo))
+
+        # Set the text alignment for the combo box (when it is closed)
+        self.region_combo.setEditable(False)  # Make sure it's not editable
+        self.region_combo.setInsertPolicy(QComboBox.NoInsert)
+        self.region_combo.setStyleSheet("QComboBox { text-align: center; }")  # Align text in the combo box when closed
 
         # Button to execute the script
         self.run_button = QPushButton("Run Tunnel")
@@ -46,13 +71,20 @@ class ClearTunnelApp(QWidget):
         layout.addWidget(self.run_button)
         layout.addWidget(self.result_label)
 
+        # Add GIF at the bottom
+        self.gif_label = QLabel(self)
+        movie = QMovie(GIF_PATH)
+        self.gif_label.setMovie(movie)
+        movie.start()
+        self.gif_label.setAlignment(Qt.AlignCenter)
+        layout.addWidget(self.gif_label)
+
         self.setLayout(layout)
 
     def run_tunnel(self):
         selected_region = self.region_combo.currentText()
         result = subprocess.run(["bash", "/app/openvpn-connect.sh", selected_region], capture_output=True, text=True)
-        url_pattern = r"https?://[a-zA-Z0-9.-]+(?:/[a-zA-Z0-9&%_./-]*)?(?:\?[a-zA-Z0-9&%=._/-]*)?"
-        url = re.findall(url_pattern, result.stdout)[0]
+        url = re.findall(URL_PATTERN, result.stdout)[0]
         subprocess.run(["bash", "firefox", url], capture_output=True, text=True)
         self.result_label.setText(f"Url: {url}")
 

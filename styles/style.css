@@ -1,0 +1,97 @@
+/* Dark background for the whole application */
+QWidget {
+    background-color: #2f2f2f;  /* Dark background color */
+}
+
+/* Style for the ComboBox */
+QComboBox {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px;
+    background-color: #4CAF50;  /* Green background */
+    color: white;
+    border: 2px solid #4CAF50;  /* Green border */
+    border-radius: 5px;
+    min-width: 200px;  /* Set a minimum width to avoid shrinking */
+    text-align: right;  /* Center align the text */
+    display: flex;  /* Use flexbox to align items */
+    justify-content: center;  /* Horizontally center the text */
+}
+
+/* Style for the ComboBox dropdown arrow */
+QComboBox::drop-down {
+    border: none;
+}
+
+/* Ensure that the dropdown list itself has the hover effect */
+QComboBox QAbstractItemView {
+    border: none;
+    background-color: #4CAF50;  /* Green background for items in the dropdown */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;  /* Center align the items in the dropdown */
+    border: 2px solid #1C4D26;  /* Border for better visibility */
+    margin: 0px;
+    padding: 0px;
+}
+
+/* Style for each individual item in the dropdown */
+QComboBox QAbstractItemView::item {
+    padding: 12px;  /* Set padding around items */
+    margin: 0px;  /* Remove margins around the items */
+    background-color: #4CAF50;  /* Ensure each item has the same background */
+    text-align: center;  /* Center align the items */
+    transition: background-color 0.3s ease;  /* Smooth transition for background color */
+}
+
+/* Hover effect for items in the dropdown */
+QComboBox QAbstractItemView::item:hover {
+    background-color: #1C4D26;  /* Even darker green for hover effect */
+    color: white;
+}
+
+/* Selected item (to keep the background after selection) */
+QComboBox QAbstractItemView::item:selected {
+    background-color: #1C4D26;  /* Same dark green when selected */
+    color: white;
+}
+
+/* Hover effect when the ComboBox itself is hovered */
+QComboBox:hover {
+    border: 2px solid #1C4D26;  /* Darker green border effect on hover */
+}
+
+/* Style for the QPushButton */
+QPushButton {
+    background-color: #4CAF50;  /* Green background */
+    color: white;
+    border: 2px solid #4CAF50;  /* Green border */
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;  /* Center align the button text */
+    display: flex;  /* Use flexbox to center content */
+    justify-content: center;  /* Horizontally center the button text */
+    align-items: center;  /* Vertically center the button text */
+}
+
+QPushButton:hover {
+    border: 2px solid #1C4D26;  /* Darker green border on hover */
+}
+
+/* Style for the label */
+QLabel {
+    font-size: 14px;
+    color: white;
+    padding: 10px;
+    text-align: center;  /* Center align the label text */
+}
+
+/* Style for the GIF at the bottom */
+QLabel#gif_label {
+    padding: 20px;
+    background-color: #2f2f2f;  /* Dark background for the bottom */
+    text-align: center;
+}
