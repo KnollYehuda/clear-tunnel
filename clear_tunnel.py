@@ -51,14 +51,6 @@ class ClearTunnelApp(QWidget):
         self.region_combo = QComboBox()
         self.region_combo.addItems(self.config.get("regions", []))
 
-        # Set the custom delegate for centering the items
-        self.region_combo.setItemDelegate(CenteredItemDelegate(self.region_combo))
-
-        # Set the text alignment for the combo box (when it is closed)
-        self.region_combo.setEditable(False)  # Make sure it's not editable
-        self.region_combo.setInsertPolicy(QComboBox.NoInsert)
-        self.region_combo.setStyleSheet("QComboBox { text-align: center; }")  # Align text in the combo box when closed
-
         # Button to execute the script
         self.run_button = QPushButton("Run Tunnel")
         self.run_button.clicked.connect(self.run_tunnel)
