@@ -83,8 +83,6 @@ class ClearTunnelApp(QWidget):
 
 # Main function to run the application
 if __name__ == "__main__":
-    # import os
-    # os.system("bash")
     app = QApplication(sys.argv)
     window = ClearTunnelApp()
     window.show()
