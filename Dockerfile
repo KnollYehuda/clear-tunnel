@@ -54,11 +54,11 @@ RUN echo "Updating apt and installing OpenVPN 3..."
 RUN apt update && apt install -y openvpn3
 
 
-# Copy application files and the clear_tunnel.sh script
+# Copy application files and the fennec_tunnel.sh script
 COPY . /app
 
-# Make the clear_tunnel.sh script executable
-RUN chmod +x /app/clear_tunnel.sh
+# Make the fennec_tunnel.sh script executable
+RUN chmod +x /app/fennec_tunnel.sh
 
 # Set the entry point to run the bash script
-ENTRYPOINT ["/app/clear_tunnel.sh"]
+ENTRYPOINT ["/app/fennec_tunnel.sh"]

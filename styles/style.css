@@ -1,5 +1,5 @@
 Dark background for the whole application
-ClearTunnelApp, QWidget {
+FennecTunnelApp, QWidget {
     background-color: #2f2f2f !important;  /* Dark background color */
 }
 

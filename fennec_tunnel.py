@@ -29,11 +29,11 @@ class CenteredItemDelegate(QStyledItemDelegate):
         super().paint(painter, option, index)
 
 
-class ClearTunnelApp(QWidget):
+class FennecTunnelApp(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Clear Tunnel 🛡️")
+        self.setWindowTitle("Fennec Tunnel 🦊")
         self.resize(600, 400)
         self.setMinimumSize(400, 300)
 
@@ -84,6 +84,6 @@ class ClearTunnelApp(QWidget):
 # Main function to run the application
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = ClearTunnelApp()
+    window = FennecTunnelApp()
     window.show()
     sys.exit(app.exec_())

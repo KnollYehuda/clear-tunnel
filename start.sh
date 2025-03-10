@@ -5,7 +5,7 @@ show_help() {
     echo -e "\033[1;34mUsage:\033[0m $0"
     echo
     echo -e "\033[1;36mDescription:\033[0m"
-    echo "  This script builds and runs the Clear Tunnel Docker container."
+    echo "  This script builds and runs the Fennec Tunnel Docker container. 🦊"
     echo
     echo -e "\033[1;33mEnvironment Variables:\033[0m"
     echo -e "  \033[1;32mOPENVPN_PROFILES\033[0m  (Required) Path to the directory containing OpenVPN profiles."
@@ -42,10 +42,10 @@ echo -e "\033[1;32mOPENVPN_PROFILES is set to:\033[0m ${OPENVPN_PROFILES}"
 
 cd "$(dirname "$0")" || exit
 
-docker build -t clear-tunnel .
+docker build -t fennec-tunnel .
 
 docker run -it --rm \
-           --name "clear-tunnel" \
+           --name "fennec-tunnel" \
            --net="host" \
            --user root \
            --privileged \
@@ -55,4 +55,4 @@ docker run -it --rm \
            -v ${OPENVPN_PROFILES}:/app/openvpn-profiles \
            -v /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket \
            -v $HOME/.Xauthority:/root/.Xauthority \
-           clear-tunnel
+           fennec-tunnel
